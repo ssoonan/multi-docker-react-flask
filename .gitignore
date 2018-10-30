@@ -3,6 +3,11 @@
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
 venv/
 .idea/
+.vscode/
+
+node_modules/
+
 *.zip
