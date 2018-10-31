@@ -10,4 +10,8 @@ def fib(index):
         return 1
     return fib(index - 1) + fib(index - 2)
 
-p.listen
+p.subscribe('insert')
+for message in p.listen():
+    index = int(message['data'])
+    value = fib(index)
+    r.hset('values', index, value)
