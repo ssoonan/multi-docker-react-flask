@@ -1,4 +1,3 @@
-from flask import Flask
 import redis
 import os
 
@@ -10,6 +9,7 @@ def fib(index):
         return 1
     return fib(index - 1) + fib(index - 2)
 
+print('worker is running')
 p.subscribe('insert')
 for message in p.listen():
     index = int(message['data'])
