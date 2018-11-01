@@ -1,18 +1,20 @@
-FROM python:3.6-slim-stretch
+FROM zapper0703/python-pipenv:0.1.1-deploy-psql
 
-ENV LC_ALL C.UTF-8
-ENV LANG C.UTF-8
-
-WORKDIR /home/app
-
-RUN pip3 install -U pip
-RUN pip3 install pipenv
+RUN adduser -D server
+WORKDIR /home/server
 
 COPY Pipfile Pipfile
 COPY Pipfile.lock Pipfile.lock
-COPY boot.sh boot.sh
 
 RUN pipenv install --deploy --system
 
-EXPOSE 5000
-ENTRYPOINT ['./boot.sh']
+COPY server.py server.py
+COPY boot.sh boot.sh
+RUN chmod 555 boot.sh
+COPY migrations migrations
+
+RUN chown -R server:server ./
+USER server
+
+EXPOSE 8000
+ENTRYPOINT ["./boot.sh"]

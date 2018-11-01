@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+# from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.http import HTTP_STATUS_CODES
@@ -19,6 +20,7 @@ app.config.update({
 })
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+# cors = CORS(app)
 
 class Values(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,7 +42,7 @@ def index():
 @app.route('/values/all')
 def values_all():
     values_all = Values.query.all()
-    numbers = [{'numbers': int(value.number) for value in values_all}]
+    numbers = [{'number': int(value.number)} for value in values_all]
     return jsonify(numbers)
 
 
