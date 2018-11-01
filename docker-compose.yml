@@ -3,11 +3,9 @@ services:
   postgres:
     image: 'postgres:latest'
     environment:
-      - PGUSER=postgres
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGPASSWORD=postgres_password
-      - PGPORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres_password
+
   redis:
     image: 'redis:latest'
     environment:
@@ -29,6 +27,7 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+
   worker:
     build:
       dockerfile: Dockerfile
@@ -42,11 +41,13 @@ services:
       dockerfile: Dockerfile
       context: ./server
     environment:
+      - FLASK_APP=server.py
+      - FLASK_ENV=production
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - PGUSER=postgres
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGPASSWORD=postgres_password
-      - PGPORT=5432
+      - DB_USER=postgres
+      - DB_HOST=postgres:5432
+      - DB_NAME=postgres
+      - DB_PASS=postgres_password
+  
     
