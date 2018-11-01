@@ -1,1 +1,0 @@
-docker run -d --name psql -p 5432:5432 -e POSTGRES_DB=fib -e POSTGRES_USER=asd -e POSTGRES_PASSWORd=79asd postgres
