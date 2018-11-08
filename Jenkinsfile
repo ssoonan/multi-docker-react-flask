@@ -17,7 +17,10 @@ pipeline {
                 withDockerRegistry([credentialsId: "ad602a39-f4eb-4fc2-9a25-9c1f531c4702", url: ""]){
                     echo 'docker hub push'
                     sh '''
-                    docker push 
+                    docker push zapper0703/multi-container:client
+                    docker push zapper0703/multi-container:api
+                    docker push zapper0703/multi-container:worker
+                    docker push zapper0703/multi-container:nginx-route
                     '''
                 }
             }
